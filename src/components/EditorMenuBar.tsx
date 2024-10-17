@@ -2,7 +2,11 @@ import { BubbleMenu, FloatingMenu } from "@tiptap/react";
 import React from "react";
 import { Icon } from "@iconify/react";
 
-const EditorMenuBar = ({ editor, ...props }) => {
+interface EditorMenuBarProps {
+  editor: any;
+}
+
+const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor, ...props }) => {
   if (!editor) {
     return null;
   }
