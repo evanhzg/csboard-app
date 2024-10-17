@@ -7,7 +7,7 @@ import video2 from "/videos/video2.mp4";
 import video3 from "/videos/video3.mp4";
 import TabItem from "@/components/Tab";
 
-let interval = undefined;
+let interval: string | number | NodeJS.Timer | undefined = undefined;
 
 export default function Home() {
   const [tab, setTab] = useState(1);
@@ -17,7 +17,7 @@ export default function Home() {
   const [running, setRunning] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [animating, setAnimating] = useState(false); // New state for animation control
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   function handleListItem(value = 1) {
     setTab(value); // Switch tab after animation
