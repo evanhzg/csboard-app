@@ -49,10 +49,7 @@ const TextEditor = ({ ...props }) => {
         {...props}
         editor={editor}
       />
-      <EditorMenuBar
-        className="bg-emerald-400 w-full flex items-center justify-center gap-4 h-16"
-        editor={editor}
-      />
+      <EditorMenuBar editor={editor} />
     </div>
   );
 };

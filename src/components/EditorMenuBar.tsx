@@ -6,7 +6,7 @@ interface EditorMenuBarProps {
   editor: any;
 }
 
-const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor, ...props }) => {
+const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
   if (!editor) {
     return null;
   }
@@ -91,7 +91,7 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor, ...props }) => {
           </button>
         </FloatingMenu>
       )}
-      <div className="button-group" {...props}>
+      <div className="button-groupbg-emerald-400 w-full flex items-center justify-center gap-4 h-16">
         {/* TITLE */}
         <button
           style={{ transition: "all 0.1s ease-in-out" }}
