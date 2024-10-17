@@ -15,23 +15,49 @@ export default function Home() {
           <span className="font-black text-emerald-950">react playground</span>{" "}
           !
         </h2>
-        <div className="w-full h-fit p-4 flex flex-col items-center gap-4 bg-emerald-800 rounded-xl shadow-xl">
-          <h3 className="font-heading font-bold text-2xl text-emerald-950">
-            My latest work
+        {/* EDITOR */}
+        <div className="w-full h-fit p-4 flex flex-col items-start gap-4 bg-emerald-400 rounded-xl shadow-xl">
+          <h3 className="font-heading font-black text-2xl text-emerald-950">
+            17/10/2024 (WIP)
           </h3>
           <div className="flex gap-4 items-start">
-            <p className="max-w-[70%] font-body text-lg text-emerald-600">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio
-              quam blanditiis, dicta explicabo repudiandae quasi saepe non eaque
-              sint laborum necessitatibus, a asperiores, hic ipsa voluptatibus
-              amet quo aliquid numquam.
+            <p className="max-w-[70%] font-body text-lg text-emerald-700">
+              I'm currently working on a <strong>text editor component</strong>{" "}
+              that allows you to write and format text content in an
+              eye-pleasant design. It's a great way to create blog posts,
+              articles or any text-based content. I plan on making it saveable
+              in collections and collaborative.
+            </p>
+            <Link
+              href={"/notes"}
+              style={{ transition: "all 0.2s ease-in-out" }}
+              className="bg-emerald-800 flex gap-2 items-center h-fit w-fit text-nowrap p-4 text-white hover:text-emerald-200 font-black rounded-lg font-heading shadow-xl hover:-translate-y-1"
+            >
+              <Icon icon="mdi:notebook" />
+              <span>Note Taking Manager</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* TABS */}
+        <div className="w-full h-fit p-4 flex flex-col items-start gap-4 bg-emerald-400 rounded-xl shadow-xl">
+          <h3 className="font-heading font-black text-2xl text-emerald-950">
+            16/10/2024
+          </h3>
+          <div className="flex gap-4 items-start">
+            <p className="max-w-[70%] font-body text-lg text-emerald-700">
+              Today, I've been working on a{" "}
+              <strong>dynamic tab selector</strong> that allows you to switch
+              between different content types. It's a great way to showcase work
+              or create a dynamic portfolio containing text, videos or any media
+              that would auto-refresh over time.
             </p>
             <Link
               href={"/tabs"}
               style={{ transition: "all 0.2s ease-in-out" }}
-              className="bg-emerald-950 flex gap-2 items-center h-fit w-fit text-nowrap p-4 text-white hover:text-emerald-600 font-black rounded-lg font-heading shadow-xl hover:-translate-y-1"
+              className="bg-emerald-800 flex gap-2 items-center h-fit w-fit text-nowrap p-4 text-white hover:text-emerald-200 font-black rounded-lg font-heading shadow-xl hover:-translate-y-1"
             >
-              <Icon icon="iconamoon:home-fill" />
+              <Icon icon="fluent:tabs-16-filled" />
               <span>Dynamic Tabs Selector</span>
             </Link>
           </div>

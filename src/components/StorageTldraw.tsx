@@ -50,12 +50,11 @@ export function StorageTldraw() {
                 width: "100%",
                 height: "100%",
                 zIndex: -1,
-                backgroundImage:
-                  "linear-gradient(to bottom right, #ff5757, #8c52ff)",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              className="bg-gradient-to-br from-emerald-400 to-emerald-800"
             ></div>
           ),
           OnTheCanvas: () => (
@@ -103,7 +102,6 @@ export function StorageTldraw() {
             >
               <Avatars />
               <DefaultStylePanel />
-              <Badge />
             </div>
           ),
         }}
