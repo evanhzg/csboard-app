@@ -1,6 +1,7 @@
 import { BubbleMenu, FloatingMenu } from "@tiptap/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
+import { decode } from "punycode";
 
 interface EditorMenuBarProps {
   editor: any;
@@ -9,6 +10,10 @@ interface EditorMenuBarProps {
 const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
   if (!editor) {
     return null;
+  }
+
+  function handleSaveButton() {
+    console.log("Saved content to localStorage");
   }
 
   return (
@@ -59,7 +64,7 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
 
       {editor && (
         <FloatingMenu
-          className="floating-menu"
+          className="floating-menu bg-white rounded-xl p-1 flex gap-2 shadow-xl"
           tippyOptions={{ duration: 100 }}
           editor={editor}
         >
@@ -67,31 +72,39 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
-            className={
-              editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-            }
+            className={`rounded-md p-1 ${
+              editor.isActive("heading", { level: 1 })
+                ? "bg-emerald-200 hover:bg-emerald-100 active:bg-emerald-300"
+                : "hover:bg-gray-100 active:bg-gray-200"
+            }`}
           >
-            H1
+            <Icon icon="gravity-ui:heading-1" />
           </button>
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            className={
-              editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-            }
+            className={`rounded-md p-1 ${
+              editor.isActive("heading", { level: 2 })
+                ? "bg-emerald-200 hover:bg-emerald-100 active:bg-emerald-300"
+                : "hover:bg-gray-100 active:bg-gray-200"
+            }`}
           >
-            H2
+            <Icon icon="gravity-ui:heading-2" />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive("bulletList") ? "is-active" : ""}
+            className={`rounded-md p-1 ${
+              editor.isActive("bulletList")
+                ? "bg-emerald-200 hover:bg-emerald-100 active:bg-emerald-300"
+                : "hover:bg-gray-100 active:bg-gray-200"
+            }`}
           >
-            Bullet list
+            <Icon icon="carbon:list-bulleted" />
           </button>
         </FloatingMenu>
       )}
-      <div className="button-groupbg-emerald-400 w-full flex items-center justify-center gap-4 h-16">
+      <div className="button-group bg-emerald-400 w-full flex items-center justify-center gap-4 h-16">
         {/* TITLE */}
         <button
           style={{ transition: "all 0.1s ease-in-out" }}
@@ -100,7 +113,17 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
           }
           className={`text-3xl rounded-md p-1 ${editor.isActive("heading", { level: 1 }) ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
         >
-          <Icon icon="pajamas:title" />
+          <Icon icon="gravity-ui:heading-1" />
+        </button>
+        {/* TITLE 2 */}
+        <button
+          style={{ transition: "all 0.1s ease-in-out" }}
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className={`text-3xl rounded-md p-1 ${editor.isActive("heading", { level: 2 }) ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+        >
+          <Icon icon="gravity-ui:heading-2" />
         </button>
         {/* HIGHLIGHT */}
         <button
@@ -133,6 +156,16 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
           className={`text-3xl rounded-md p-1 ${editor.isActive("italic") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
         >
           <Icon icon="tabler:italic" />
+        </button>
+        {/* SAVE */}
+        <button
+          style={{ transition: "all 0.1s ease-in-out" }}
+          onClick={() => {
+            handleSaveButton();
+          }}
+          className={`text-3xl rounded-md p-1 hover:bg-emerald-500 active:bg-emerald-700`}
+        >
+          <Icon icon="bx:save" />
         </button>
       </div>
     </>

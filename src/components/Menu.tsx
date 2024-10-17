@@ -25,7 +25,7 @@ export default function Menu() {
       <button
         onClick={() => setExpanded(!expanded)}
         style={{ transition: "all 0.1s linear" }}
-        className={`absolute top-4 font-bold flex gap-2 items-center font-heading ${pathname === "/" ? "text-emerald-200 text-lg" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
+        className={`hidden lg:block absolute top-4 font-bold flex gap-2 items-center font-heading ${pathname === "/" ? "text-emerald-200 text-lg" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
         <Icon
           className={`transition-all duration-300 ease-in-out ${!expanded ? "text-3xl" : ""}`}

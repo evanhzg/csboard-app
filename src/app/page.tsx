@@ -21,13 +21,20 @@ export default function Home() {
             17/10/2024 (WIP)
           </h3>
           <div className="flex gap-4 items-start">
-            <p className="max-w-[70%] font-body text-lg text-emerald-700">
-              I'm currently working on a <strong>text editor component</strong>{" "}
-              that allows you to write and format text content in an
-              eye-pleasant design. It's a great way to create blog posts,
-              articles or any text-based content. I plan on making it saveable
-              in collections and collaborative.
-            </p>
+            <div className="max-w-[70%] font-body text-lg text-emerald-700">
+              <p>
+                I'm currently working on a{" "}
+                <strong>text editor component</strong> that allows you to write
+                and format text content in an eye-pleasant design. It's a great
+                way to create blog posts, articles or any text-based content. I
+                plan on making it saveable in collections and collaborative.
+              </p>
+              <span>
+                <strong>Update (17/10/2024)</strong>: Data is now saved in local
+                storage to be persistent on refresh without the need to manually
+                save.
+              </span>
+            </div>
             <Link
               href={"/notes"}
               style={{ transition: "all 0.2s ease-in-out" }}

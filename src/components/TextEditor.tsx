@@ -10,6 +10,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 
 import Text from "@tiptap/extension-text";
 import EditorMenuBar from "@/components/EditorMenuBar";
+import "./TextEditor.css";
 
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -29,21 +30,27 @@ const TextEditor = ({ ...props }) => {
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === "heading") {
-            return "What’s the title?";
+            return "Title needed huh...";
           }
 
-          return "Can you add some further context?";
+          return "Content needed huh...";
         },
       }),
       Highlight,
       Paragraph,
       Text,
     ],
-    content: "<p>WIP 🌎️</p>",
+    content:
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("editor-content")
+        : "",
+    onUpdate: ({ editor }) => {
+      window.localStorage.setItem("editor-content", editor.getHTML());
+    },
   });
 
   return (
-    <div className="flex flex-col items-center bg-white rounded-xl w-1/2 h-[25rem] overflow-hidden shadow-xl">
+    <div className="flex flex-col items-center bg-white rounded-xl w-[calc(100%-2rem)] lg:w-1/2 h-[25rem] overflow-hidden shadow-xl">
       <EditorContent
         className="font-body text-emerald-950 text-lg p-4 flex-1 w-full h-full overflow-y-scroll"
         {...props}

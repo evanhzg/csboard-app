@@ -7,9 +7,13 @@
     "dev": "next dev & npx next-video sync -w",
     "build": "next build",
     "start": "next start",
+    "start:hocuspocus": "node hocuspocusServer.js",
     "lint": "next lint"
   },
   "dependencies": {
+    "@hocuspocus/extension-database": "^2.13.7",
+    "@hocuspocus/extension-logger": "^2.13.7",
+    "@hocuspocus/server": "^2.13.7",
     "@liveblocks/client": "^2.9.0",
     "@liveblocks/node": "^2.9.0",
     "@liveblocks/react": "^2.9.0",
@@ -29,7 +33,9 @@
     "react-error-boundary": "^4.0.11",
     "react-player": "^2.16.0",
     "react-transition-group": "^4.4.5",
-    "tldraw": "^3.0.2"
+    "sqlite3": "^5.1.7",
+    "tldraw": "^3.0.2",
+    "yjs": "^13.6.20"
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",
