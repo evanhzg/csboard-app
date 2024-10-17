@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev & npx next-video sync -w",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,18 +14,26 @@
     "@liveblocks/node": "^2.9.0",
     "@liveblocks/react": "^2.9.0",
     "@liveblocks/react-ui": "^2.9.0",
+    "@tiptap/pm": "^2.8.0",
+    "@tiptap/react": "^2.8.0",
+    "@tiptap/starter-kit": "^2.8.0",
     "@types/node": "20.3.1",
     "@types/react-dom": "18.2.5",
-    "autoprefixer": "^10.4.17",
     "next": "^14.2.11",
+    "next-video": "^1.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "^4.0.11",
+    "react-player": "^2.16.0",
     "tldraw": "^3.0.2"
   },
   "devDependencies": {
+    "@iconify/react": "^5.0.2",
     "@types/react": "^18.3.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
     "prettier": "^3.3.2",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.4.5"
   }
 }

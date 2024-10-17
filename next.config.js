@@ -1,3 +1,5 @@
+const { withNextVideo } = require('next-video/process')
+
 // @ts-check
 const path = require("path");
 
@@ -10,6 +12,9 @@ const nextConfig = {
     }
     return config;
   },
+  images: {
+    formats: ["image/webp"],
+  },
 };
 
-module.exports = nextConfig;
+module.exports = withNextVideo(nextConfig);

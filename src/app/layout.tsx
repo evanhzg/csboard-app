@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { Providers } from "./Providers";
 import { Suspense } from "react";
+import Menu from "@/components/Menu";
 
 export const metadata: Metadata = {
   title: "Liveblocks",
@@ -21,23 +22,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <head>
-        <link
-          href="https://liveblocks.io/favicon-32x32.png"
-          rel="icon"
-          sizes="32x32"
-          type="image/png"
-        />
-        <link
-          href="https://liveblocks.io/favicon-16x16.png"
-          rel="icon"
-          sizes="16x16"
-          type="image/png"
-        />
-      </head>
-      <body>
+      <head></head>
+      <body className="lg:flex">
         <Suspense>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Menu />
+            <div
+              className="flex 
+      bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen h-screen"
+            >
+              {children}
+            </div>
+          </Providers>
         </Suspense>
       </body>
     </html>
