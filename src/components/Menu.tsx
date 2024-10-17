@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-import "./Menu.css";
 
 export default function Menu() {
   const [expanded, setExpanded] = useState(false);
@@ -25,7 +24,7 @@ export default function Menu() {
       <button
         onClick={() => setExpanded(!expanded)}
         style={{ transition: "all 0.1s linear" }}
-        className={`hidden lg:block absolute top-4 font-bold flex gap-2 items-center font-heading ${pathname === "/" ? "text-emerald-200 text-lg" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
+        className={`hidden lg:flex absolute top-4 font-bold  gap-2 items-center font-heading ${pathname === "/" ? "text-emerald-200 text-lg" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
         <Icon
           className={`transition-all duration-300 ease-in-out ${!expanded ? "text-3xl" : ""}`}
