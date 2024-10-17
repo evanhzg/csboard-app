@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import Menu from "@/components/Menu";
 
 export const metadata: Metadata = {
-  title: "Liveblocks",
+  title: "Evan's Playground",
 };
 
 const inter = Inter({
@@ -22,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <head></head>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className="lg:flex">
         <Suspense>
           <Providers>

@@ -1,6 +1,6 @@
 {
-  "name": "@liveblocks-examples/nextjs-tldraw-whiteboard-storage",
-  "description": "This example shows how to build a tldraw app using Liveblocks Storage, and Next.js.",
+  "name": "Evan's playground",
+  "description": "My react playground containing my current projects, component creation and some portfolio stuff.",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
