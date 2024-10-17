@@ -32,7 +32,7 @@ export default function Menu() {
       {/* NOTES */}
       <Link
         href="/notes"
-        style={{ transition: "all 0.5s ease-in-out" }}
+        style={{ transition: "all 0.1s ease-in-out" }}
         className={`font-bold flex gap-2 items-center font-heading ${pathname === "/notes" ? "text-emerald-200 text-xl" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
         <Icon icon="mdi:notebook" />
@@ -42,7 +42,7 @@ export default function Menu() {
       {/* BOARD */}
       <Link
         href="/board"
-        style={{ transition: "all 0.5s ease-in-out" }}
+        style={{ transition: "all 0.1s ease-in-out" }}
         className={`font-bold flex gap-2 items-center font-heading ${pathname === "/board" ? "text-emerald-200 text-xl" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
         <Icon icon="solar:palette-bold" />
@@ -51,7 +51,6 @@ export default function Menu() {
 
       <Link
         href="/404"
-        style={{ transition: "all 0.2s ease-in-out" }}
         className={`font-bold flex gap-2 items-center font-heading text-sm text-emerald-600 opacity-35 select-none pointer-events-none aria-disabled`}
       >
         <Icon icon="gravity-ui:square-dashed" />
