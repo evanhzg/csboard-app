@@ -46,7 +46,7 @@ export default function Menu() {
         className={`font-bold flex gap-2 items-center font-heading ${pathname === "/board" ? "text-emerald-200 text-xl" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
         <Icon icon="solar:palette-bold" />
-        <span>Board (slow)</span>
+        <span>Board</span>
       </Link>
 
       <Link

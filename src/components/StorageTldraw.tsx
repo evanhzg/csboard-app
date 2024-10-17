@@ -33,8 +33,8 @@ export function StorageTldraw() {
   return (
     <div
       style={{
-        height: "100vh",
-        width: "100vw",
+        height: "100%",
+        width: "100%",
         position: "relative",
       }}
     >
@@ -94,7 +94,6 @@ export function StorageTldraw() {
               </div>
             </div>
           ),
-          // Render a live avatar stack at the top-right
           StylePanel: () => (
             <div
               style={{
