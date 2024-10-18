@@ -13,12 +13,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "./TextEditor.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
-
-// Initialize Supabase client with environment variables
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
-);
+import supabase from "@/supabaseClient";
 
 // Custom document extension for tiptap editor
 const CustomDocument = Document.extend({
@@ -38,6 +33,7 @@ const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
   useEffect(() => {
     const fetchDocument = async () => {
       if (!documentId) {
+        console.log("test");
         setLoading(false);
         return;
       }
