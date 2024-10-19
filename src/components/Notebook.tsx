@@ -27,7 +27,11 @@ const Notebook = ({
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
-      setWidth(288); // Set to initial width after 200ms
+      if (window.innerWidth > 768) {
+        setWidth(288); // Set to initial width after 200ms
+      } else {
+        setWidth(window.innerWidth); // Set width to window.innerWidth
+      }
       setStartAnimation(1);
     }, 1000);
 
@@ -76,9 +80,16 @@ const Notebook = ({
           transition: "opacity 300ms ease-in-out",
         }}
       >
-        <h2 className="text-center text-emerald-950 font-black font-heading text-3xl select-none">
+        <h2 className="hidden lg:block text-center text-emerald-950 font-black font-heading text-3xl select-none">
           Notebook
         </h2>
+        <button
+          onClick={() => handleAddNote()}
+          style={{ transition: "all 0.1s ease-in-out" }}
+          className="flex h-16 gap-2 p-4 rounded-xl font-heading items-center justify-center opacity-70 hover:opacity-100 border-4 text-emerald-700 border-emerald-700 border-dashed"
+        >
+          <Icon icon="subway:add"></Icon>
+        </button>
         {notes
           .sort(
             (a, b) =>
@@ -124,18 +135,14 @@ const Notebook = ({
               </p>
             </button>
           ))}
-        <button
-          onClick={() => handleAddNote()}
-          style={{ transition: "all 0.1s ease-in-out" }}
-          className="flex h-16 gap-2 p-4 rounded-xl font-heading items-center justify-center opacity-70 hover:opacity-100 border-4 text-emerald-700 border-emerald-700 border-dashed"
-        >
-          <Icon icon="subway:add"></Icon>
-        </button>
       </div>
       <div
         onMouseDown={handleMouseDown}
-        className="absolute top-0 right-0 h-full w-2 cursor-ew-resize bg-emerald-800"
+        className="hidden lg:block absolute top-0 right-0 h-full w-2 cursor-ew-resize bg-emerald-800"
       />
+      <p className="absolute w-full text-center text-emerald-700 italic bottom-4 font-body select-none">
+        Pssst, I'm resizable !
+      </p>
     </div>
   );
 };

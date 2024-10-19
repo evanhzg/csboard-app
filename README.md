@@ -37,23 +37,36 @@ More details will be added in a near future.
 
 To both deploy on Vercel, follow the instructions on [Vercel](vercel.com/docs)
 
-Features Collaborative Canvas: Built with tldraw and integrated with Liveblocks
-for real-time collaboration. Text Editor Component: Allows you to write and
-format text content with persistent storage. Responsive Design: Fully responsive
-and optimized for various screen sizes. Scripts dev: Starts the development
-server and syncs videos. build: Builds the project for production. start: Starts
-the production server. start:hocuspocus: Starts the Hocuspocus server. lint:
-Lints the codebase. Dependencies @hocuspocus/extension-database
-@hocuspocus/extension-logger @hocuspocus/server @liveblocks/client
-@liveblocks/node @liveblocks/react @liveblocks/react-ui @supabase/supabase-js
-For a full list of dependencies, see the package.json file.
+## Features
 
-License The tldraw library is provided under the tldraw license which allows
-commercial and non-commercial use. To purchase a business license and remove the
-watermark, contact sales@tldraw.com.
+**Collaborative Canvas**: Built with tldraw and integrated with Liveblocks for
+real-time collaboration.
+
+**Text Editor Component**: Allows you to write and format text content with
+persistent storage.
+
+**Responsive Design**: Fully responsive and optimized for various screen sizes.
+
+**Dynamic Tabs Component with State Reload and Auto-Switching**: This component
+features tabs that dynamically reload their state and automatically switch
+between them, accompanied by a loading bar to ensure a seamless user experience.
+
+## Dependencies
+
+@liveblocks - Drawing Board
+
+@supabase - Database (Real-time postgresql) for Notes
+
+@tiptap - Text editor utilities
+
+_(For a full list of dependencies, see the package.json file.)_
+
+## License
+
+The tldraw library is provided under the tldraw license which allows commercial
+and non-commercial use.
+
+To purchase a business license and remove the watermark, contact
+sales@tldraw.com.
 
 Evan's Playground is licensed under the Apache-2.0 License.
-
-```
-
-```
