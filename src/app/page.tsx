@@ -39,6 +39,10 @@ export default function Home() {
                 real-time in DB, removal and new note features and selection of
                 existing notes to edit added. Name management also set up.
               </p>
+              <p>
+                <strong>Update (19/10/2024) 2</strong>: Notebook rehaul, now
+                resizable and with soft animations when appearing.
+              </p>
             </div>
             <Link
               href={"/notes"}

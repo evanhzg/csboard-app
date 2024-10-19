@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TextEditor from "@/components/TextEditor";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import supabase from "@/supabaseClient";
+import Notebook from "@/components/Notebook";
 
 type Note = {
   id: string;
@@ -25,7 +26,6 @@ function Notes() {
       }
     };
     fetchNotes();
-
     const subscription = supabase
       .channel("custom-all-channel")
       .on(
@@ -53,7 +53,6 @@ function Notes() {
         }
       )
       .subscribe();
-
     return () => {
       subscription.unsubscribe();
     };
@@ -66,13 +65,11 @@ function Notes() {
       author: "Paul",
       updated_at: new Date().toISOString(),
     };
-
     const { data, error } = await supabase
       .from("notes")
       .insert([newNote])
       .select("id")
       .single();
-
     if (data) {
       setNotes((prevNotes) => [...prevNotes, { ...newNote, id: data.id }]);
       setCurrentDocumentId(data.id);
@@ -87,59 +84,14 @@ function Notes() {
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-full">
-      <div className="h-32 lg:h-full w-full lg:w-[18rem] bg-emerald-900 flex lg:flex-col gap-4 p-4 overflow-scroll">
-        {notes
-          .sort(
-            (a, b) =>
-              new Date(b.updated_at).getTime() -
-              new Date(a.updated_at).getTime()
-          )
-          .map((note) => (
-            <button
-              onClick={() => setCurrentDocumentId(note.id)}
-              key={note.id}
-              style={{ transition: "all 0.1s ease-in-out" }}
-              className={`flex gap-2 h-16 ${
-                currentDocumentId === note.id
-                  ? "bg-emerald-200"
-                  : "bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
-              } p-4 rounded-xl font-heading items-center w-full justify-between`}
-            >
-              <h2 className="text-xl font-bold text-emerald-950 text-ellipsis text-nowrap overflow-hidden max-w-[50%]">
-                {note.name}
-              </h2>
-              <p className="text-emerald-800 italic text-[0.8rem] text-nowrap">
-                (
-                {note.updated_at
-                  ? new Intl.DateTimeFormat("fr-FR", {
-                      day: "2-digit",
-                      month: "short",
-                    }).format(new Date(note.updated_at)) +
-                    " " +
-                    new Date(note.updated_at)
-                      .getHours()
-                      .toString()
-                      .padStart(2, "0") +
-                    ":" +
-                    new Date(note.updated_at)
-                      .getMinutes()
-                      .toString()
-                      .padStart(2, "0")
-                  : ""}
-                )
-              </p>
-            </button>
-          ))}
-        <button
-          onClick={() => handleAddNote()}
-          style={{ transition: "all 0.1s ease-in-out" }}
-          className="flex h-16 gap-2 p-4 rounded-xl font-heading items-center justify-center opacity-70 hover:opacity-100 border-4 text-emerald-700 border-emerald-700 border-dashed"
-        >
-          <Icon icon="subway:add"></Icon>
-        </button>
-      </div>
+      <Notebook
+        notes={notes}
+        currentDocumentId={currentDocumentId}
+        setCurrentDocumentId={setCurrentDocumentId}
+        handleAddNote={handleAddNote}
+      />
       <div className="flex flex-col gap-8 items-center justify-center w-full h-full">
-        <h1 className="text-3xl font-black text-emerald-950 font-heading text-center">
+        <h1 className="text-3xl font-black text-emerald-950 font-heading text-center select-none">
           React NTM
           <span className="hidden md:block">(Note Taking Manager)</span>
         </h1>
