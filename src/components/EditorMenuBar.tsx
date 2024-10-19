@@ -1,7 +1,6 @@
 import { BubbleMenu, FloatingMenu } from "@tiptap/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
-import { decode } from "punycode";
 
 interface EditorMenuBarProps {
   editor: any;
@@ -10,10 +9,6 @@ interface EditorMenuBarProps {
 const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
   if (!editor) {
     return null;
-  }
-
-  function handleSaveButton() {
-    console.log("Saved content to localStorage");
   }
 
   return (
@@ -69,6 +64,16 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
           editor={editor}
         >
           <button
+            onClick={() => editor.chain().focus().setParagraph().run()}
+            className={`rounded-md p-1 ${
+              editor.isActive("paragraph")
+                ? "bg-emerald-200 hover:bg-emerald-100 active:bg-emerald-300"
+                : "hover:bg-gray-100 active:bg-gray-200"
+            }`}
+          >
+            <Icon icon="flowbite:paragraph-solid" />
+          </button>
+          <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
@@ -105,6 +110,14 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
         </FloatingMenu>
       )}
       <div className="button-group bg-emerald-400 w-full flex items-center justify-center gap-4 h-16">
+        {/* PARAGRAPH */}
+        <button
+          style={{ transition: "all 0.1s ease-in-out" }}
+          onClick={() => editor.chain().focus().setParagraph().run()}
+          className={`text-3xl rounded-md p-1 ${editor.isActive("paragraph") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+        >
+          <Icon icon="flowbite:paragraph-solid" />
+        </button>
         {/* TITLE */}
         <button
           style={{ transition: "all 0.1s ease-in-out" }}
@@ -125,48 +138,41 @@ const EditorMenuBar: React.FC<EditorMenuBarProps> = ({ editor }) => {
         >
           <Icon icon="gravity-ui:heading-2" />
         </button>
-        {/* HIGHLIGHT */}
-        <button
-          style={{ transition: "all 0.1s ease-in-out" }}
-          onClick={() => editor.chain().focus().toggleHighlight().run()}
-          className={`text-3xl rounded-md p-1 ${editor.isActive("highlight") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
-        >
-          <Icon icon="bx:highlight" />
-        </button>
-        {/* BOLD */}
-        <button
-          style={{ transition: "all 0.1s ease-in-out" }}
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          className={`text-3xl rounded-md p-1 ${editor.isActive("bold") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
-        >
-          <Icon icon="proicons:text-bold" />
-        </button>
-        {/* STRIKE */}
-        <button
-          style={{ transition: "all 0.1s ease-in-out" }}
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          className={`text-3xl rounded-md p-1 ${editor.isActive("strike") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
-        >
-          <Icon icon="uil:text-strike-through" />
-        </button>
-        {/* ITALIC */}
-        <button
-          style={{ transition: "all 0.1s ease-in-out" }}
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={`text-3xl rounded-md p-1 ${editor.isActive("italic") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
-        >
-          <Icon icon="tabler:italic" />
-        </button>
-        {/* SAVE */}
-        <button
-          style={{ transition: "all 0.1s ease-in-out" }}
-          onClick={() => {
-            handleSaveButton();
-          }}
-          className={`text-3xl rounded-md p-1 hover:bg-emerald-500 active:bg-emerald-700`}
-        >
-          <Icon icon="bx:save" />
-        </button>
+        {/* TEXT DECO GROUP */}
+        <div className="hidden lg:flex button-group bg-emerald-400 items-center justify-center gap-4 h-16">
+          {/* HIGHLIGHT */}
+          <button
+            style={{ transition: "all 0.1s ease-in-out" }}
+            onClick={() => editor.chain().focus().toggleHighlight().run()}
+            className={`text-3xl rounded-md p-1 ${editor.isActive("highlight") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+          >
+            <Icon icon="bx:highlight" />
+          </button>
+          {/* BOLD */}
+          <button
+            style={{ transition: "all 0.1s ease-in-out" }}
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            className={`text-3xl rounded-md p-1 ${editor.isActive("bold") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+          >
+            <Icon icon="proicons:text-bold" />
+          </button>
+          {/* STRIKE */}
+          <button
+            style={{ transition: "all 0.1s ease-in-out" }}
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            className={`text-3xl rounded-md p-1 ${editor.isActive("strike") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+          >
+            <Icon icon="uil:text-strike-through" />
+          </button>
+          {/* ITALIC */}
+          <button
+            style={{ transition: "all 0.1s ease-in-out" }}
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            className={`text-3xl rounded-md p-1 ${editor.isActive("italic") ? "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 active:text-emerald-100" : "hover:bg-emerald-500 active:bg-emerald-700"}`}
+          >
+            <Icon icon="tabler:italic" />
+          </button>
+        </div>
       </div>
     </>
   );

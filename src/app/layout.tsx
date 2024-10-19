@@ -31,7 +31,7 @@ export default function RootLayout({
             <Menu />
             <div
               className="flex 
-      bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen h-[calc(100vh-4rem)] lg:h-screen"
+      bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen h-[calc(100vh-4rem)] lg:h-screen overflow-auto"
             >
               {children}
             </div>

@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function Home() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full h-full flex flex-col items-center justify-center my-16">
       <Image src={logo} width={200} alt="Evan Hoizey Logo"></Image>
       <div className="flex flex-col gap-4 items-center w-[90%]">
         <h2 className="font-bold text-3xl font-heading text-emerald-950">
@@ -20,8 +20,8 @@ export default function Home() {
           <h3 className="font-heading font-black text-2xl text-emerald-950">
             17/10/2024 (WIP)
           </h3>
-          <div className="flex gap-4 items-start">
-            <div className="max-w-[70%] font-body text-lg text-emerald-700">
+          <div className="flex flex-col gap-4 items-start">
+            <div className="flex flex-col gap-4 w-full lg:max-w-[70%] font-body text-lg text-emerald-700">
               <p>
                 I'm currently working on a{" "}
                 <strong>text editor component</strong> that allows you to write
@@ -29,11 +29,16 @@ export default function Home() {
                 way to create blog posts, articles or any text-based content. I
                 plan on making it saveable in collections and collaborative.
               </p>
-              <span>
+              <p>
                 <strong>Update (17/10/2024)</strong>: Data is now saved in local
                 storage to be persistent on refresh without the need to manually
                 save.
-              </span>
+              </p>
+              <p>
+                <strong>Update (19/10/2024)</strong>: Persistent data, saved in
+                real-time in DB, removal and new note features and selection of
+                existing notes to edit added. Name management also set up.
+              </p>
             </div>
             <Link
               href={"/notes"}
@@ -51,14 +56,16 @@ export default function Home() {
           <h3 className="font-heading font-black text-2xl text-emerald-950">
             16/10/2024
           </h3>
-          <div className="flex gap-4 items-start">
-            <p className="max-w-[70%] font-body text-lg text-emerald-700">
-              Today, I've been working on a{" "}
-              <strong>dynamic tab selector</strong> that allows you to switch
-              between different content types. It's a great way to showcase work
-              or create a dynamic portfolio containing text, videos or any media
-              that would auto-refresh over time.
-            </p>
+          <div className="flex flex-col gap-4 items-start">
+            <div className="flex flex-col gap-4 w-full lg:max-w-[70%] font-body text-lg text-emerald-700">
+              <p className="max-w-[70%] font-body text-lg text-emerald-700">
+                Today, I've been working on a{" "}
+                <strong>dynamic tab selector</strong> that allows you to switch
+                between different content types. It's a great way to showcase
+                work or create a dynamic portfolio containing text, videos or
+                any media that would auto-refresh over time.
+              </p>
+            </div>
             <Link
               href={"/tabs"}
               style={{ transition: "all 0.2s ease-in-out" }}

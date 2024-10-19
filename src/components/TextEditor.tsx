@@ -1,16 +1,13 @@
 "use client";
 
-import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Focus from "@tiptap/extension-focus";
 import Highlight from "@tiptap/extension-highlight";
-import Paragraph from "@tiptap/extension-paragraph";
 import Document from "@tiptap/extension-document";
-import Placeholder from "@tiptap/extension-placeholder";
-import Text from "@tiptap/extension-text";
 import EditorMenuBar from "@/components/EditorMenuBar";
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import CharacterCount from "@tiptap/extension-character-count";
 import "./TextEditor.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import supabase from "@/supabaseClient";
@@ -20,27 +17,34 @@ const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
-const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
+const TextEditor = ({
+  documentId = "",
+  onDelete,
+  ...props
+}: {
+  documentId?: string;
+  onDelete: () => void;
+}) => {
   // State to manage loading state and initial content
   const [loading, setLoading] = useState(true);
   const [initialContent, setInitialContent] = useState<any | null>(null);
-  // State to manage the current document ID
+  // State to manage the current document ID and note name
   const [currentDocumentId, setCurrentDocumentId] = useState<string | null>(
     documentId
   );
+  const [noteName, setNoteName] = useState<string | null>("New Note");
 
   // Effect to fetch document content based on documentId
   useEffect(() => {
     const fetchDocument = async () => {
       if (!documentId) {
-        console.log("test");
         setLoading(false);
         return;
       }
 
       const { data, error } = await supabase
         .from("notes")
-        .select("data")
+        .select("data, name")
         .eq("id", documentId)
         .single();
 
@@ -52,6 +56,7 @@ const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
 
       if (data) {
         setInitialContent(data.data);
+        setNoteName(data.name);
       }
 
       setLoading(false);
@@ -79,15 +84,7 @@ const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
       StarterKit.configure({
         document: false,
       }),
-      Placeholder.configure({
-        placeholder: ({ node }) => {
-          if (node.type.name === "heading") {
-            return "Title needed huh...";
-          }
 
-          return "Content needed huh...";
-        },
-      }),
       Highlight,
     ],
 
@@ -95,30 +92,53 @@ const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
 
     onUpdate: async ({ editor }) => {
       const content = editor.getJSON();
-      if (!currentDocumentId) {
-        const { data, error } = await supabase
+      if (documentId) {
+        const { error } = await supabase
           .from("notes")
-          .insert([{ data: content, name: "Untitled", author: "Anonymous" }])
-          .select("id")
-          .single();
-
-        if (error) {
-          console.error("Error creating document:", error);
-        } else {
-          setCurrentDocumentId(data.id);
-        }
-      } else {
-        const { error } = await supabase.from("notes").upsert([
-          {
-            id: currentDocumentId,
-            data: content,
-            name: "Untitled",
-            author: "Anonymous",
-          },
-        ]);
+          .update([
+            {
+              data: content,
+              updated_at: new Date().toISOString(),
+            },
+          ])
+          .eq("id", documentId);
 
         if (error) {
           console.error("Error updating document:", error);
+        }
+      }
+    },
+  });
+
+  const limit = 25;
+
+  const name = useEditor({
+    extensions: [CharacterCount.configure({ limit }), StarterKit],
+    content: noteName,
+    editorProps: {
+      handleKeyDown(view, event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          return true;
+        }
+        return false;
+      },
+    },
+    onUpdate: async ({ editor }) => {
+      const content = editor.getJSON();
+      if (documentId) {
+        const { error } = await supabase
+          .from("notes")
+          .update([
+            {
+              name: content.content?.[0]?.content?.[0]?.text,
+              updated_at: new Date().toISOString(),
+            },
+          ])
+          .eq("id", documentId);
+
+        if (error) {
+          console.error("Error updating document's name:", error);
         }
       }
     },
@@ -136,9 +156,44 @@ const TextEditor = ({ documentId = "", ...props }: { documentId?: string }) => {
     return <Icon icon="line-md:loading-loop" />;
   }
 
+  function handleNoteDelete(documentId: string) {
+    supabase
+      .from("notes")
+      .delete()
+      .eq("id", documentId)
+      .then((response) => {
+        if (response.error) {
+          console.error("Error deleting document:", response.error);
+        } else {
+          console.log("Document deleted successfully");
+          onDelete();
+        }
+      });
+    setCurrentDocumentId(null);
+    return currentDocumentId;
+  }
+
   // Editor content and menu bar
   return (
-    <div className="flex flex-col items-center bg-white rounded-xl w-[calc(100%-2rem)] lg:w-1/2 h-[25rem] overflow-hidden shadow-xl">
+    <div className="flex flex-col items-center bg-white rounded-xl w-[calc(100%-2rem)] lg:w-1/2 h-[25rem] overflow-hidden shadow-xl relative">
+      <div className="flex w-full items-center justify-between p-4 text-2xl bg-emerald-800">
+        {/* NAME */}
+        <EditorContent
+          className="font-heading  font-bold w-full text-start text-emerald-200 "
+          editor={name}
+        />
+        <button
+          onClick={() => {
+            handleNoteDelete(documentId);
+          }}
+          style={{ transition: "all 0.1s ease-in-out" }}
+          className="text-red-300 hover:text-red-400 active:text-red-500"
+        >
+          <Icon icon="streamline:file-delete-alternate-solid" />
+        </button>
+      </div>
+
+      {/* CONTENT */}
       <EditorContent
         className="font-body text-emerald-950 text-lg p-4 flex-1 w-full h-full overflow-y-scroll"
         {...props}

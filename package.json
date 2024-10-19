@@ -19,6 +19,7 @@
     "@liveblocks/react": "^2.9.0",
     "@liveblocks/react-ui": "^2.9.0",
     "@supabase/supabase-js": "^2.45.5",
+    "@tiptap/extension-character-count": "^2.8.0",
     "@tiptap/extension-focus": "^2.8.0",
     "@tiptap/extension-highlight": "^2.8.0",
     "@tiptap/extension-placeholder": "^2.8.0",
@@ -36,11 +37,13 @@
     "react-transition-group": "^4.4.5",
     "sqlite3": "^5.1.7",
     "tldraw": "^3.0.2",
+    "uuid": "^10.0.0",
     "yjs": "^13.6.20"
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",
     "@types/react": "^18.3.3",
+    "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "prettier": "^3.3.2",

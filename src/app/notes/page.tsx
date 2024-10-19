@@ -11,9 +11,11 @@ type Note = {
   updated_at: string;
 };
 
-export default function Notes() {
+function Notes() {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [documentId, setDocumentId] = useState<string | undefined>(undefined);
+  const [currentDocumentId, setCurrentDocumentId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -32,6 +34,9 @@ export default function Notes() {
         (payload: any) => {
           console.log("Change received!", payload);
           setNotes((prevNotes) => {
+            if (payload.eventType === "DELETE") {
+              return prevNotes.filter((note) => note.id !== payload.old.id);
+            }
             const noteIndex = prevNotes.findIndex(
               (note) => note.id === payload.new.id
             );
@@ -54,39 +59,79 @@ export default function Notes() {
     };
   }, []);
 
+  const handleAddNote = async () => {
+    const newNote = {
+      name: "New Note",
+      data: {},
+      author: "Paul",
+      updated_at: new Date().toISOString(),
+    };
+
+    const { data, error } = await supabase
+      .from("notes")
+      .insert([newNote])
+      .select("id")
+      .single();
+
+    if (data) {
+      setNotes((prevNotes) => [...prevNotes, { ...newNote, id: data.id }]);
+      setCurrentDocumentId(data.id);
+    } else {
+      console.error("Error creating document:", error);
+    }
+  };
+
+  const handleDeleteNote = () => {
+    setCurrentDocumentId(null);
+  };
+
   return (
-    <div className="flex w-full h-full">
-      <div className="h-full w-[18rem] bg-emerald-900 flex flex-col w-full h-full gap-4 p-4">
-        {notes.map((note) => (
-          <button
-            onClick={() => setDocumentId(note.id)}
-            key={note.id}
-            style={{ transition: "all 0.1s ease-in-out" }}
-            className={`flex gap-2 h-16 ${
-              documentId === note.id
-                ? "bg-emerald-200"
-                : "bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
-            } p-4 rounded-xl font-heading items-center`}
-          >
-            <h2 className="text-xl font-bold text-emerald-950">{note.name} </h2>
-            <p className="text-emerald-800 italic text-[0.8rem]">
-              (
-              {note.updated_at
-                ? new Intl.DateTimeFormat("fr-FR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                  }).format(new Date(note.updated_at)) +
-                  " - " +
-                  new Date(note.updated_at).getHours() +
-                  ":" +
-                  new Date(note.updated_at).getMinutes()
-                : ""}
-              )
-            </p>
-          </button>
-        ))}
+    <div className="flex flex-col lg:flex-row w-full h-full">
+      <div className="h-32 lg:h-full w-full lg:w-[18rem] bg-emerald-900 flex lg:flex-col gap-4 p-4 overflow-scroll">
+        {notes
+          .sort(
+            (a, b) =>
+              new Date(b.updated_at).getTime() -
+              new Date(a.updated_at).getTime()
+          )
+          .map((note) => (
+            <button
+              onClick={() => setCurrentDocumentId(note.id)}
+              key={note.id}
+              style={{ transition: "all 0.1s ease-in-out" }}
+              className={`flex gap-2 h-16 ${
+                currentDocumentId === note.id
+                  ? "bg-emerald-200"
+                  : "bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+              } p-4 rounded-xl font-heading items-center w-full justify-between`}
+            >
+              <h2 className="text-xl font-bold text-emerald-950 text-ellipsis text-nowrap overflow-hidden max-w-[50%]">
+                {note.name}
+              </h2>
+              <p className="text-emerald-800 italic text-[0.8rem] text-nowrap">
+                (
+                {note.updated_at
+                  ? new Intl.DateTimeFormat("fr-FR", {
+                      day: "2-digit",
+                      month: "short",
+                    }).format(new Date(note.updated_at)) +
+                    " " +
+                    new Date(note.updated_at)
+                      .getHours()
+                      .toString()
+                      .padStart(2, "0") +
+                    ":" +
+                    new Date(note.updated_at)
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, "0")
+                  : ""}
+                )
+              </p>
+            </button>
+          ))}
         <button
-          onClick={() => setDocumentId(undefined)}
+          onClick={() => handleAddNote()}
           style={{ transition: "all 0.1s ease-in-out" }}
           className="flex h-16 gap-2 p-4 rounded-xl font-heading items-center justify-center opacity-70 hover:opacity-100 border-4 text-emerald-700 border-emerald-700 border-dashed"
         >
@@ -98,8 +143,23 @@ export default function Notes() {
           React NTM
           <span className="hidden md:block">(Note Taking Manager)</span>
         </h1>
-        <TextEditor documentId={documentId} />
+        {currentDocumentId ? (
+          <TextEditor
+            documentId={currentDocumentId}
+            onDelete={handleDeleteNote}
+          />
+        ) : (
+          <button
+            onClick={() => handleAddNote()}
+            style={{ transition: "all 0.1s ease-in-out" }}
+            className="w-[calc(100%-2rem)] lg:w-1/2 h-[25rem] flex gap-2 p-4 rounded-xl font-heading items-center justify-center opacity-70 hover:opacity-100 border-4 text-emerald-500 border-emerald-500 border-dashed text-4xl hover:text-5xl"
+          >
+            <Icon icon="subway:add"></Icon>
+          </button>
+        )}
       </div>
     </div>
   );
 }
+
+export default Notes;
