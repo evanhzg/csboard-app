@@ -90,7 +90,7 @@ function Notes() {
         setCurrentDocumentId={setCurrentDocumentId}
         handleAddNote={handleAddNote}
       />
-      <div className="flex flex-col gap-8 items-center justify-center w-full h-full">
+      <div className="flex flex-col gap-8 items-center justify-center w-full h-full py-16 ">
         <h1 className="text-3xl font-black text-emerald-950 font-heading text-center select-none">
           React NTM
           <span className="hidden md:block">(Note Taking Manager)</span>

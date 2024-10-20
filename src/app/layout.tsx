@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { Providers } from "./Providers";
 import { Suspense } from "react";
-import Menu from "@/components/Menu";
+import PageLayout from "@/components/PageLayout";
 
 export const metadata: Metadata = {
   title: "Evan's Playground",
@@ -25,16 +25,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="lg:flex">
-        <Suspense>
+      <body className={`lg:flex `}>
+        <Suspense fallback={<div>Loading...</div>}>
           <Providers>
-            <Menu />
-            <div
-              className="flex 
-      bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen h-[calc(100vh-4rem)] lg:h-screen overflow-auto"
-            >
-              {children}
-            </div>
+            <PageLayout>{children}</PageLayout>
           </Providers>
         </Suspense>
       </body>

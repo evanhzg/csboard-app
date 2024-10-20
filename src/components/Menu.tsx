@@ -3,10 +3,15 @@
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 
-export default function Menu() {
-  const [expanded, setExpanded] = useState(false);
+type MenuProps = {
+  expanded: boolean;
+  setExpanded: (id: boolean | null) => void;
+};
+
+export default function Menu(props: MenuProps) {
+  const { expanded, setExpanded } = props;
   const [disabled, setDisabled] = useState(false);
 
   const pathname = usePathname();
@@ -19,7 +24,8 @@ export default function Menu() {
 
   return (
     <section
-      className={`overflow- relative flex lg:flex-col ${expanded ? "lg:w-[12rem]" : "lg:w-[4rem]"} h-[4rem] lg:h-[100vh] justify-center gap-4 p-4 bg-emerald-950 text-white transition-[width] duration-300 ease-in-out`}
+      className={`lg:fixed flex lg:flex-col w-full ${expanded ? "lg:w-[12rem]" : "lg:w-[4rem]"} h-[4rem] lg:h-full justify-center gap-4 p-4 bg-emerald-950 text-white transition-[width] duration-300 ease-in-out`}
+      {...props}
     >
       <button
         onClick={() => setExpanded(!expanded)}

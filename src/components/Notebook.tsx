@@ -27,10 +27,10 @@ const Notebook = ({
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
-      if (window.innerWidth > 768) {
+      if (document.documentElement.clientWidth > 768) {
         setWidth(288); // Set to initial width after 200ms
       } else {
-        setWidth(window.innerWidth); // Set width to window.innerWidth
+        setWidth(document.documentElement.clientWidth); // Set width to document width
       }
       setStartAnimation(1);
     }, 1000);
@@ -67,7 +67,7 @@ const Notebook = ({
 
   return (
     <div
-      className="relative h-32 lg:h-full bg-emerald-900"
+      className="relative lg:h-screen bg-emerald-900"
       style={{
         width: `${width}px`,
         transition: startAnimation === 1 ? "width 500ms ease-in-out" : "none",
@@ -140,7 +140,7 @@ const Notebook = ({
         onMouseDown={handleMouseDown}
         className="hidden lg:block absolute top-0 right-0 h-full w-2 cursor-ew-resize bg-emerald-800"
       />
-      <p className="absolute w-full text-center text-emerald-700 italic bottom-4 font-body select-none">
+      <p className="hidden lg:block absolute w-full text-center text-emerald-700 italic bottom-4 font-body select-none">
         Pssst, I'm resizable !
       </p>
     </div>
