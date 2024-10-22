@@ -18,7 +18,7 @@ export default function PageLayout({
       />
       <section
         style={{ transition: "all 0.1s ease-in-out" }}
-        className={`${expanded ? "lg:pl-[16rem]" : "lg:pl-[4rem]"} flex bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen min-h-[calc(100vh-4rem)] lg:min-h-screen h-fit overflow-auto`}
+        className={`${expanded ? "lg:pl-[12rem]" : "lg:pl-[4rem]"} flex bg-gradient-to-br from-emerald-400 to-emerald-800 w-screen min-h-[calc(100vh-4rem)] lg:min-h-screen h-fit overflow-auto`}
       >
         {children}
       </section>

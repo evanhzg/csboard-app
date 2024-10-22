@@ -1,4 +1,4 @@
-const { withNextVideo } = require('next-video/process')
+const { withNextVideo } = require("next-video/process");
 
 // @ts-check
 const path = require("path");
