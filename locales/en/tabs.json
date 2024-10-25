@@ -1,0 +1,8 @@
+{
+  "legend": "You can start/pause the video by pressing Spacebar after clicking on it.",
+
+  "textTab.title": "About reading time...",
+  "textTab.startButton": "Play timer",
+  "textTab.stopButton": "Stop timer",
+  "textTab.content": "Reading speed varies by person, but on average, people read 200 to 250 words per minute. This means a short paragraph or brief statement can be read quickly, allowing for efficient communication in moments when time is limited."
+}

@@ -9,6 +9,8 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { client } from "@/sanity/client";
 import { defineQuery, PortableText } from "next-sanity";
 import { UrlObject } from "url";
+import useTranslation from "next-translate/useTranslation";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 const options = { next: { revalidate: 60 } };
 
@@ -20,14 +22,14 @@ const POSTS_QUERY = defineQuery(`*[
 const posts = await client.fetch(POSTS_QUERY, {}, options);
 
 export default function Home() {
+  const { t, lang } = useTranslation("common");
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center py-8 overflow-scroll">
       <Image src={logo} width={200} alt="Evan Hoizey Logo"></Image>
       <div className="flex flex-col gap-4 items-center w-[90%]">
         <h2 className="text-center font-bold text-3xl font-heading text-emerald-950">
-          Welcome to my{" "}
-          <span className="font-black text-emerald-950">react playground</span>{" "}
-          !
+          {t("title")}
         </h2>
         {posts.map(
           (post: {

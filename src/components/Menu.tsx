@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import useTranslation from "next-translate/useTranslation";
 
 type MenuProps = {
   expanded: boolean;
@@ -11,7 +12,9 @@ type MenuProps = {
 };
 
 export default function Menu(props: MenuProps) {
-  const { expanded, setExpanded } = props;
+  const { t } = useTranslation("common");
+
+  const { expanded } = props;
   const [disabled, setDisabled] = useState(false);
 
   const pathname = usePathname();
@@ -25,10 +28,9 @@ export default function Menu(props: MenuProps) {
   return (
     <section
       className={`lg:fixed flex lg:flex-col w-full ${expanded ? "lg:w-[12rem]" : "lg:w-[4rem]"} h-[4rem] lg:h-full justify-center gap-4 p-4 bg-emerald-950 text-white transition-[width] duration-300 ease-in-out`}
-      {...props}
     >
       <button
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => props.setExpanded(!expanded)}
         style={{ transition: "all 0.1s linear" }}
         className={`hidden lg:flex absolute top-4 font-bold  gap-2 items-center font-heading ${pathname === "/" ? "text-emerald-200 text-lg" : "text-sm text-emerald-600 hover:text-emerald-400 hover:text-base"}`}
       >
@@ -39,7 +41,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          Expand
+          {t("menu.shrink")}
         </span>
       </button>
       {/* HOMEPAGE */}
@@ -55,7 +57,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          Homepage
+          {t("menu.home")}
         </span>
       </Link>
 
@@ -72,7 +74,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          Tabs
+          {t("menu.tabs")}
         </span>
       </Link>
 
@@ -89,7 +91,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          Notes
+          {t("menu.notes")}
         </span>
       </Link>
 
@@ -106,7 +108,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          Board
+          {t("menu.board")}
         </span>
       </Link>
 
@@ -121,7 +123,7 @@ export default function Menu(props: MenuProps) {
         <span
           className={`text-nowrap opacity-0 ${expanded ? "opacity-100" : ""} ${disabled ? "hidden" : ""} transition-all duration-300 ease-in-out`}
         >
-          To be added
+          {t("menu.tobeadded")}
         </span>
       </Link>
     </section>

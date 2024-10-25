@@ -1,3 +1,4 @@
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 interface TabItemProps {
@@ -16,6 +17,8 @@ const TabItem: React.FC<TabItemProps> = ({
   title,
   ...props
 }) => {
+  const { t, lang } = useTranslation("tabs");
+
   return (
     <li
       onClick={() => handleListItem(index)}
@@ -38,8 +41,7 @@ const TabItem: React.FC<TabItemProps> = ({
           <div className="flex lg:flex-col lg:gap-2">
             {tab !== 4 && (
               <p className="hidden lg:block italic text-emerald-600 font-body text-left">
-                You can start/pause the video by pressing Spacebar after
-                clicking on it.
+                {t("legend")}
               </p>
             )}
             <div className="absolute bottom-2 left-2 right-2 lg:static h-2 bg-emerald-800 rounded-lg">

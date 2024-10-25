@@ -6,6 +6,7 @@ import video1 from "/videos/video1.mp4";
 import video2 from "/videos/video2.mp4";
 import video3 from "/videos/video3.mp4";
 import TabItem from "@/components/Tab";
+import useTranslation from "next-translate/useTranslation";
 
 let interval: string | number | NodeJS.Timer | undefined = undefined;
 
@@ -18,6 +19,7 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [animating, setAnimating] = useState(false); // New state for animation control
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { t, lang } = useTranslation("tabs");
 
   function handleListItem(value = 1) {
     setTab(value); // Switch tab after animation
@@ -128,20 +130,15 @@ export default function Home() {
         return (
           <div className="w-full flex flex-col gap-4 aspect-video p-4">
             <h2 className="font-bold text-2xl font-heading">
-              About reading time...
+              {t("textTab.title")}
             </h2>
-            <p className="font-body text-lg">
-              Reading speed varies by person, but on average, people read 200 to
-              250 words per minute. This means a short paragraph or brief
-              statement can be read quickly, allowing for efficient
-              communication in moments when time is limited.
-            </p>
+            <p className="font-body text-lg">{t("textTab.content")}</p>
             <button
               style={{ transition: "all 0.1s ease-in-out" }}
               className="w-48 bg-emerald-500 shadow-md hover:bg-emerald-400 active:shadow-sm active:bg-emerald-600 font-heading text-emerald-800 font-bold py-2 px-4 rounded-xl w-fit"
               onClick={() => handlePauseButton()}
             >
-              {running ? "PAUSE TIMER" : "PLAY TIMER"}
+              {running ? t("textTab.stopButton") : t("textTab.startButton")}
             </button>
           </div>
         );
@@ -194,7 +191,7 @@ export default function Home() {
                 progress={progress}
                 handleListItem={() => handleListItem(4)}
                 index={4}
-                title="Text content"
+                title={t("textTab.title")}
               />
             </ul>
           </div>

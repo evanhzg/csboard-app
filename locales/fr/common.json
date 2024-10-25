@@ -1,0 +1,12 @@
+{
+  "title": "Bienvenue sur mon playboard react !",
+
+  "menu.shrink": "Réduire",
+  "menu.home": "Accueil",
+  "menu.about": "À propos",
+  "menu.contact": "Contact",
+  "menu.tabs": "Onglets",
+  "menu.notes": "Notes",
+  "menu.board": "Tableau",
+  "menu.tobeadded": "Prochainement"
+}

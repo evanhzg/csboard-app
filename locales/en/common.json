@@ -1,0 +1,12 @@
+{
+  "title": "Welcome to my react playboard",
+
+  "menu.shrink": "Shrink",
+  "menu.home": "Home",
+  "menu.about": "About",
+  "menu.contact": "Contact",
+  "menu.tabs": "Tabs",
+  "menu.notes": "Notes",
+  "menu.board": "Board",
+  "menu.tobeadded": "Coming Soon"
+}

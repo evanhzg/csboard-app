@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
+import useTranslation from "next-translate/useTranslation";
 import { useState, useEffect } from "react";
 
 type Note = {
@@ -24,6 +25,7 @@ const Notebook = ({
 }: NotebookProps) => {
   const [width, setWidth] = useState(8); // Initial width set to 0
   const [startAnimation, setStartAnimation] = useState(0);
+  const { t, lang } = useTranslation("notes");
 
   useEffect(() => {
     const timer1 = setTimeout(() => {
@@ -140,8 +142,11 @@ const Notebook = ({
         onMouseDown={handleMouseDown}
         className="hidden lg:block absolute top-0 right-0 h-full w-2 cursor-ew-resize bg-emerald-800"
       />
-      <p className="hidden lg:block absolute w-full text-center text-emerald-700 italic bottom-4 font-body select-none">
-        Pssst, I'm resizable !
+      <p
+        className={`hidden lg:block absolute w-full text-center text-emerald-700 italic bottom-4 font-body select-none text-wrap p-4 ${startAnimation === 2 ? "opacity-100" : "opacity-0"}`}
+        style={{ transition: "opacity 300ms ease-in-out" }}
+      >
+        {t("legend")}
       </p>
     </div>
   );

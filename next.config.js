@@ -1,5 +1,5 @@
 const { withNextVideo } = require("next-video/process");
-
+const nextTranslate = require("next-translate-plugin");
 // @ts-check
 const path = require("path");
 
@@ -15,6 +15,23 @@ const nextConfig = {
   images: {
     formats: ["image/webp"],
   },
+  i18n: {
+    locales: ["fr", "en"],
+    defaultLocale: "fr",
+    localeDetection: false,
+    domains: [
+      {
+        domain: "evan-playground.vercel.app",
+        defaultLocale: "fr",
+        http: true,
+      },
+      {
+        domain: "en.evan-playground.vercel.app",
+        defaultLocale: "en",
+        http: true,
+      },
+    ],
+  },
 };
 
-module.exports = withNextVideo(nextConfig);
+module.exports = nextTranslate(withNextVideo(nextConfig));
