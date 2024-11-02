@@ -12,6 +12,7 @@ import {structureTool} from 'sanity/structure'
 import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
+import {I18nFields} from 'sanity-plugin-i18n-fields'
 
 export default defineConfig({
   basePath: '/studio',
@@ -24,5 +25,13 @@ export default defineConfig({
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),
-  ],
+
+    I18nFields({
+    locales: [
+      {code: 'en', label: 'en', title: 'English'},
+      {code: 'fr', label: 'fr', title: 'Français', default: true},
+    ]
+  }),
+],
+
 })

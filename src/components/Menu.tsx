@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import useTranslation from "next-translate/useTranslation";
+import ChangeLanguage from "./ChangeLanguage";
 
 type MenuProps = {
   expanded: boolean;
@@ -29,6 +30,7 @@ export default function Menu(props: MenuProps) {
     <section
       className={`lg:fixed flex lg:flex-col w-full ${expanded ? "lg:w-[12rem]" : "lg:w-[4rem]"} h-[4rem] lg:h-full justify-center gap-4 p-4 bg-emerald-950 text-white transition-[width] duration-300 ease-in-out`}
     >
+      {/* EXPAND/SHRINK MENU */}
       <button
         onClick={() => props.setExpanded(!expanded)}
         style={{ transition: "all 0.1s linear" }}
@@ -44,6 +46,7 @@ export default function Menu(props: MenuProps) {
           {t("menu.shrink")}
         </span>
       </button>
+
       {/* HOMEPAGE */}
       <Link
         href="/"
@@ -112,6 +115,7 @@ export default function Menu(props: MenuProps) {
         </span>
       </Link>
 
+      {/* TO BE ADDED */}
       <Link
         href="/404"
         className={`min-w-max font-bold flex gap-2 items-center font-heading text-sm text-emerald-600 opacity-35 select-none pointer-events-none aria-disabled`}
@@ -126,6 +130,9 @@ export default function Menu(props: MenuProps) {
           {t("menu.tobeadded")}
         </span>
       </Link>
+
+      {/* LANGUAGE CHOICE */}
+      <ChangeLanguage />
     </section>
   );
 }

@@ -1,5 +1,31 @@
 import {defineField, defineType} from 'sanity'
 
+const supportedLanguages = [
+  { id: 'fr', title: 'French', isDefault: true },
+  { id: 'en', title: 'English' }
+]
+
+export const baseLanguage = supportedLanguages.find(l => l.isDefault)
+
+export const localeString = defineType({
+  title: 'Localized string',
+  name: 'localeString',
+  type: 'object',
+  fieldsets: [
+    {
+      title: 'Translations',
+      name: 'translations',
+      options: { collapsible: true }
+    }
+  ],
+  fields: supportedLanguages.map(lang => ({
+    title: lang.title,
+    name: lang.id,
+    type: 'string',
+    fieldset: lang.isDefault ? undefined : 'translations'
+  }))
+})
+
 export const postType = defineType({
   name: 'post',
   title: 'Post',
@@ -7,13 +33,13 @@ export const postType = defineType({
   fields: [
     defineField({
       name: 'title',
-      type: 'string',
+      type: 'localeString',
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'title.fr', // Assuming 'fr' is the default language
       },
     }),
     defineField({
@@ -22,7 +48,7 @@ export const postType = defineType({
     }),
     defineField({
       name: 'body',
-      type: 'blockContent',
+      type: 'localeString',
     }),
     defineField({
       name: 'link',
@@ -31,7 +57,7 @@ export const postType = defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'title.fr', // Assuming 'fr' is the default language
       publishedAt: 'publishedAt',
     },
   },
